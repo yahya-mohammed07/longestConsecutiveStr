@@ -8,7 +8,7 @@ auto longest (std::string dna, std::vector<std::string> str) -> void;
 
 auto main() -> int
 {
-    std::ifstream input ("/media/yahya/E2AC5C31AC5BFE8B/vs code/cppProjects/longestConsecutiveStr/sequences/10.txt");
+    std::ifstream input ("sequences/5.txt");
     std::string dna = "";
     if (input.is_open())
     {
@@ -19,23 +19,23 @@ auto main() -> int
         input.close();
     }
     else {std::cout << "error" << "\n";}
+    //
     std::vector<std::string> strs {"AATG", "AGATC", "GAAA", "GATA", "TATC", "TCTAG", "TCTG", "TTTTTTCT"};
-    longest(dna, strs);
+    longest (dna, strs);
 }
 //
 auto longest (std::string dna, std::vector<std::string> str) -> void
 {
-    std::map<std::string, int> result;
+    std::map<std::string, long> result;
     long sizeDna = dna.size();
-    // FIXME: not working on small databases (all strs shoulb be in the sequence to work)
-    for (auto s: str)
+    // FIXME: not works on small sequences
+    long temp = 0;
+    for (const auto& s: str)
     {
-        int maxCount = 0;
-        long sizeStr = s.size();
-        int temp = 0;
-        //
+        long count = 0;
+        const long sizeStr = s.size();
         long i = 0;
-        while (i < sizeDna - sizeStr)
+        while (i < sizeDna)
         {
             std::string next = "";
             for (int j = i; j < sizeStr + i; ++j)
@@ -46,20 +46,16 @@ auto longest (std::string dna, std::vector<std::string> str) -> void
             {
                 temp++;
                 i += sizeStr;
+                if (temp > count) {count = temp;}
             }
             else {++i;temp = 0;}
-            //
-            if (temp > maxCount)
-            {
-                maxCount = temp;
-            }
         }
-        result.insert({s, maxCount});
+        result.insert({s, count});
     }
     //
     for (auto const& i: result)
     {
-        std::cout << i.first << " : " << i.second << "\n";
+        std::cout << i.first << ": " << i.second << "\n";
     }
     std::cout << '\n';
 }
