@@ -1,45 +1,50 @@
 #include <iostream>
 
-int longest (std::string dna, std::string str);
+auto longest (std::string dna, std::string str) -> int;
 
 auto main() -> int
 {
-    std::string dna = "ACTTTATTGCGCCCACAGTGGCTTTTGTCTACTGATTCCATAGATAATGACAAATGTTCAAGGGGTTCTGGTACTTAGTCCGATCTCAGTGCGACTCGGGGGCGAACGTCGTGGTTATAAACTCGTCCAGATGCCGGCGCCAAACAAATATGATCCCATTGTGCACCCCCACTGGTCAGAACTCTCGGTGCTTAAGCGATACACGCGTCCGTGAGCATTCAACACCCAACTACTAGTCCGGTAATCTGAATGCACACGTGGCCCGGGTTACCGGGATGCCGAAAGAAAGAAAG";
-    std::string pattren = "GAAA";
-    std::cout << longest(dna, pattren) << std::endl;
+    std::cout << "-enter the DNA sequence: ";
+    std::string dna = "";
+    std::cin >> dna;
+    std::cout << "-enter the STR to search for: ";
+    std::string str = "";
+    std::cin >> str;
+    std::cout << str <<": " <<longest(dna, str) << std::endl;
 }
-
-auto longest (std::string dna, std::string pattren) -> int
+//
+auto longest (std::string dna, std::string str) -> int
 {
+    long sizeDna = dna.size(), sizeStr = str.size();
+    //
     int maxCount = 0;
     int temp = 0;
-    std::string next = "";
-    std::string next2 = "";
-
-    for (int i = 0; i < dna.size() - pattren.size(); i += pattren.size())
+    //
+    int i = 0;
+    while (i < sizeDna - sizeStr)
     {
-        next = "";
-        next2 = "";
-        // to store string from 0 to len of str (key)
-        for (int j = i; j < pattren.size() + i; ++j)
+        std::string next = "";
+        std::string next2 = "";
+        for (int j = i; j < sizeStr + i; ++j)
         {
             next += dna[j];
         }
-        // if the temp str == the pattren then...
-        if (next == pattren)
+        if (next == str)
         {
-            for (int k = i; k < pattren.size() + i; ++k)
+            for (int k = i; k < sizeStr + i; ++k)
             {
                 next2 += dna[k];
             }
-            if (next == next2)
+            if (next2 == next)
             {
                 temp++;
+                i += sizeStr;
             }
-            if (temp > maxCount)
-            {
-                maxCount = temp;
-            }
+        }
+        else {++i;temp = 0;}
+        if (temp > maxCount)
+        {
+            maxCount = temp;
         }
     }
     return maxCount;
