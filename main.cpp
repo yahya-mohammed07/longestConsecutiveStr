@@ -36,7 +36,7 @@ auto longest (std::string dna, std::vector<std::string> str) -> void
         std::uint64_t count = 0;
         const std::uint64_t sizeStr = s.size();
         std::uint64_t i = 0;
-        while (i < sizeDna)
+        while (i < sizeDna - sizeStr)
         {
             std::string next = "";
             for (int j = i; j < sizeStr + i; ++j)
