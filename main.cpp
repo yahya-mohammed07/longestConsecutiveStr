@@ -9,7 +9,7 @@ auto longest (std::string dna, std::vector<std::string> str) -> void;
 
 auto main() -> int
 {
-    std::ifstream input ("sequences/20.txt");
+    std::ifstream input ("sequences/10.txt");
     std::string dna = "";
     if (input.is_open())
     {
@@ -47,9 +47,9 @@ auto longest (std::string dna, std::vector<std::string> str) -> void
             {
                 temp++;
                 i += sizeStr;
-                if (temp > count) {count = temp;}
             }
             else {++i; temp = 0;}
+            if (temp > count) {count = temp;}
         }
         result.insert({s, count});
     }
