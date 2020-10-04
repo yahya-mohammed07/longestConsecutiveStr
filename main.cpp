@@ -1,4 +1,3 @@
-#include <cstdint>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -7,9 +6,14 @@
 
 auto longest (std::string dna, std::vector<std::string> str) -> void;
 
-auto main() -> int
+auto main(int argc, char ** argv) -> int
 {
-    std::ifstream input ("sequences/10.txt");
+    if (argc != 2)
+    {
+        std::cout << "usage ./main sequences/xx.txt " << std::endl;
+        return -1;
+    }
+    std::ifstream input (argv[1]);
     std::string dna = "";
     if (input.is_open())
     {
