@@ -6,7 +6,7 @@
 
 auto longest (std::string dna, std::vector<std::string> str) -> void;
 
-auto main(int argc, char ** argv) -> int
+auto main(int argc, char *argv[]) -> int
 {
     if (argc != 2)
     {
