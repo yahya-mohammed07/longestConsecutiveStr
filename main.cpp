@@ -4,7 +4,8 @@
 #include <map>
 #include <fstream>
 
-auto longest (const std::string& , const std::vector<std::string>& ) -> void;
+auto longest (const std::string& ,
+        const std::vector<std::string>& ) -> void;
 
 auto main(int argc, char *argv[]) -> int
 {
@@ -24,11 +25,13 @@ auto main(int argc, char *argv[]) -> int
     }
     else { std::cerr << "- failed to open file..."; return 1;}
     //
-    const std::vector<std::string> strs {"AATG", "AGATC", "GAAA", "GATA", "TATC", "TCTAG", "TCTG", "TTTTTTCT"};
+    const std::vector<std::string> strs {"AATG", "AGATC", "GAAA", "GATA",
+        "TATC", "TCTAG", "TCTG", "TTTTTTCT"};
     longest (dna, strs);
 }
 //
-auto longest (const std::string& dna, const std::vector<std::string>& str) -> void
+auto longest (const std::string& dna,
+        const std::vector<std::string>& str) -> void
 {
     std::map<std::string, std::uint64_t> result;
     std::uint64_t sizeDna = dna.size();
