@@ -4,32 +4,31 @@
 #include <map>
 #include <fstream>
 
-auto longest (std::string dna, std::vector<std::string> str) -> void;
+auto longest (const std::string& , const std::vector<std::string>& ) -> void;
 
 auto main(int argc, char *argv[]) -> int
 {
-    if (argc != 2)
+    if ( argc != 2 )
     {
-        std::cout << "usage ./main sequences/xx.txt " << std::endl;
+        std::cout << "usage ./main sequences/xx.txt...";
         return -1;
     }
     std::ifstream input (argv[1]);
     std::string dna = "";
-    if (input.is_open())
+    if ( input.is_open() )
     {
-        while (input.good())
-        {
+        while ( input.good() )
             std::getline(input, dna);
-        }
+
         input.close();
     }
-    else {std::cout << "error" << "\n"; return 1;}
+    else { std::cerr << "- failed to open file..."; return 1;}
     //
-    std::vector<std::string> strs {"AATG", "AGATC", "GAAA", "GATA", "TATC", "TCTAG", "TCTG", "TTTTTTCT"};
+    const std::vector<std::string> strs {"AATG", "AGATC", "GAAA", "GATA", "TATC", "TCTAG", "TCTG", "TTTTTTCT"};
     longest (dna, strs);
 }
 //
-auto longest (std::string dna, std::vector<std::string> str) -> void
+auto longest (const std::string& dna, const std::vector<std::string>& str) -> void
 {
     std::map<std::string, std::uint64_t> result;
     std::uint64_t sizeDna = dna.size();
