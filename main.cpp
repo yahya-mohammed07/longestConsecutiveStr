@@ -11,7 +11,7 @@ auto main(int argc, char *argv[]) -> int
 {
     if ( argc != 2 )
     {
-        std::cout << "usage ./main sequences/xx.txt...";
+        std::cout << "usage ./out sequences/xx.txt...";
         return -1;
     }
     std::ifstream input (argv[1]);
