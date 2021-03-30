@@ -9,15 +9,13 @@ auto longest (const std::string& ,
 
 auto main(int argc, char *argv[]) -> int
 {
-    if ( argc != 2 )
-    {
+    if ( argc != 2 ) {
         std::cout << "usage ./out sequences/xx.txt...";
         return -1;
     }
     std::ifstream input (argv[1]);
     std::string dna = "";
-    if ( input.is_open() )
-    {
+    if ( input.is_open() ) {
         while ( input.good() )
             std::getline(input, dna);
 
@@ -36,16 +34,13 @@ auto longest (const std::string& dna,
     std::map<std::string, std::uint64_t> result;
     std::uint64_t sizeDna = dna.size();
     //
-    for (const auto& s: str)
-    {
+    for (const auto& s: str) {
         std::uint64_t temp = 0;
         std::uint64_t count = 0;
         const std::uint64_t sizeStr = s.size();
         std::uint64_t i = 0;
-        while (i < sizeDna - sizeStr)
-        {
-            if (dna.substr(i, sizeStr) == s)
-            {
+        while (i < sizeDna - sizeStr) {
+            if (dna.substr(i, sizeStr) == s) {
                 temp++;
                 i += sizeStr;
             }
@@ -56,8 +51,7 @@ auto longest (const std::string& dna,
     }
     //
     std::cout << '\n';
-    for (auto const& i: result)
-    {
+    for (auto const& i: result) {
         std::cout <<" { "<< i.first << ": ";
         std::cout << i.second << " }\n";
     }
