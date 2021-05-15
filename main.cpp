@@ -53,8 +53,8 @@ auto longest(const std::string_view dna, const auto &str) -> void {
     result.insert(std::make_pair(s, count));
   }
   //
-  for (auto const &i : result) {
-    std::cout << " { " << i.first << ": ";
-    std::cout << i.second << " }\n";
+  for (  auto &&[key,val] : result) {
+    std::cout << " { " << key << ": "
+    << val << " }\n";
   }
 }
