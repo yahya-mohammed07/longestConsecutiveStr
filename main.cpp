@@ -8,8 +8,8 @@
 auto longest(const std::string_view dna, const auto &str) -> void;
 
 auto main(int argc, char *argv[]) -> int {
-  if (argc != 2) {
-    std::cout << "usage ./main sequences/xx.txt...";
+  if ( argc < 2 || argc > 2) {
+    std::cout << "usage ./main sequences/xx.txt";
     return 1;
   }
   std::ifstream input(argv[1]);
