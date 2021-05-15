@@ -1,59 +1,60 @@
+#include <array>
+#include <fstream>
 #include <iostream>
 #include <string>
-#include <vector>
-#include <map>
-#include <fstream>
+#include <string_view>
+#include <unordered_map>
 
-auto longest (const std::string& ,
-        const std::vector<std::string>& ) -> void;
+auto longest(const std::string_view dna, const auto &str) -> void;
 
-auto main(int argc, char *argv[]) -> int
-{
-    if ( argc != 2 ) {
-        std::cout << "usage ./out sequences/xx.txt...";
-        return -1;
-    }
-    std::ifstream input (argv[1]);
-    std::string dna = "";
-    if ( input.is_open() ) {
-        while ( input.good() )
-            std::getline(input, dna);
+auto main(int argc, char *argv[]) -> int {
+  if (argc != 2) {
+    std::cout << "usage ./main sequences/xx.txt...";
+    return 1;
+  }
+  std::ifstream input(argv[1]);
+  std::string dna{};
+  if (input.is_open()) {
+    while (input.good())
+      std::getline(input, dna);
 
-        input.close();
-    }
-    else { std::cerr << "- failed to open file..."; return 1;}
-    //
-    const std::vector<std::string> strs {"AATG", "AGATC", "GAAA", "GATA",
-        "TATC", "TCTAG", "TCTG", "TTTTTTCT"};
-    longest (dna, strs);
+    input.close();
+  } else {
+    std::cerr << "- failed to open file...";
+    return 2;
+  }
+  //
+  constexpr std::array<std::string_view, 8> strs = {
+      "AATG", "AGATC", "GAAA", "GATA", "TATC", "TCTAG", "TCTG", "TTTTTTCT"};
+  longest(dna, strs);
 }
 //
-auto longest (const std::string& dna,
-        const std::vector<std::string>& str) -> void
-{
-    std::map<std::string, std::uint64_t> result;
-    std::uint64_t sizeDna = dna.size();
-    //
-    for (const auto& s: str) {
-        std::uint64_t temp = 0;
-        std::uint64_t count = 0;
-        const std::uint64_t sizeStr = s.size();
-        std::uint64_t i = 0;
-        while (i < sizeDna - sizeStr) {
-            if (dna.substr(i, sizeStr) == s) {
-                temp++;
-                i += sizeStr;
-            }
-            else {++i; temp = 0;}
-            if (temp > count) {count = temp;}
-        }
-        result.insert({s, count});
+auto longest(const std::string_view dna, const auto &str) -> void {
+  std::unordered_map<std::string_view, std::size_t> result;
+  std::size_t sizeDna = dna.size();
+  //
+  for (auto &&s : str) {
+    std::size_t temp = {};
+    std::size_t count = {};
+    const std::size_t sizeStr = s.size();
+    std::size_t i = {};
+    while (i < sizeDna - sizeStr) {
+      if (dna.substr(i, sizeStr) == s) {
+        temp++;
+        i += sizeStr;
+      } else {
+        ++i;
+        temp = 0;
+      }
+      if (temp > count) {
+        count = temp;
+      }
     }
-    //
-    std::cout << '\n';
-    for (auto const& i: result) {
-        std::cout <<" { "<< i.first << ": ";
-        std::cout << i.second << " }\n";
-    }
-    std::cout << '\n';
+    result.insert(std::make_pair(s, count));
+  }
+  //
+  for (auto const &i : result) {
+    std::cout << " { " << i.first << ": ";
+    std::cout << i.second << " }\n";
+  }
 }
